@@ -6,4 +6,4 @@
 
 - * Piège. INTEGER pour le prix : l'ariary n'a pas de centimes, et un entier évite les erreurs d'arrondi des flottants. L'identifiant est une clé artificielle auto-générée (id_plat), car le nom d'un plat peut changer ou être dupliqué : ce n'est pas un bon identifiant.
 
-## ETAPE 2-Les categories
+## ETAPE 2-Les categories 
