@@ -1,9 +1,58 @@
-# Niveau 1-Fondamental (etapes 1 a 5)
+# Schéma relationnel : la gargote de Rado
 
-## ETAPE 1-La carte
+Notation : clé primaire en **gras**, clé étrangère précédée de `#`, attribut facultatif suivi de `?`.
+Pour une clé primaire composée, tous les attributs sont en gras.
 
-- * Creation du première table et insértion des sept plats du contexte. Vérification : `SELECT nom, prix FROM plat ORDER BY prix DESC;` qui affiche les plats du plus cher au moins cher 
+---
 
-- * Piège. INTEGER pour le prix : l'ariary n'a pas de centimes, et un entier évite les erreurs d'arrondi des flottants. L'identifiant est une clé artificielle auto-générée (id_plat), car le nom d'un plat peut changer ou être dupliqué : ce n'est pas un bon identifiant.
+## Étape 1 : La carte
 
-## ETAPE 2-Les categories 
+```
+PLAT(**id_plat**, nom, prix)   (nouveau)
+```
+
+---
+
+## Étape 2 : Les catégories
+
+```
+CATEGORIE(**id_categorie**, libelle)   (nouveau)
+PLAT(**id_plat**, nom, prix, #id_categorie)   (modifié)
+```
+
+---
+
+## Étape 3 : Les commandes
+
+```
+CATEGORIE(**id_categorie**, libelle)
+PLAT(**id_plat**, nom, prix, #id_categorie)
+COMMANDE(**id_commande**, date_commande)   (nouveau)
+LIGNE_COMMANDE(**#id_commande**, **#id_plat**, quantite)   (nouveau)
+```
+
+---
+
+## Étape 4 : Les habitués
+
+```
+CATEGORIE(**id_categorie**, libelle)
+PLAT(**id_plat**, nom, prix, #id_categorie)
+CLIENT(**id_client**, nom, telephone?)   (nouveau)
+COMMANDE(**id_commande**, date_commande, #id_client?)   (modifié)
+LIGNE_COMMANDE(**#id_commande**, **#id_plat**, quantite)
+```
+
+---
+
+## Étape 5 : Serveurs et tables
+
+```
+CATEGORIE(**id_categorie**, libelle)
+PLAT(**id_plat**, nom, prix, #id_categorie)
+CLIENT(**id_client**, nom, telephone?)
+SERVEUR(**id_serveur**, nom)   (nouveau)
+TABLE_SALLE(**id_table**, numero)   (nouveau)
+COMMANDE(**id_commande**, date_commande, #id_client?, #id_serveur, #id_table?)   (modifié)
+LIGNE_COMMANDE(**#id_commande**, **#id_plat**, quantite)
+```
